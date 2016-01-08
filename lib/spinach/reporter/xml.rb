@@ -1,5 +1,6 @@
 # encoding: utf-8
 require_relative 'reporting'
+require 'nokogiri'
 
 module Spinach
   class Reporter
@@ -26,9 +27,19 @@ module Spinach
         @timestamp = Time.now
         @test_count = all_steps.count
         @failure_count = failed_steps.count
-        binding.pry
-        # override Reporting
-        # close timers, export report
+
+        xml = build_xml_report.to_xml
+        @out.write(xml)
+        @out.close
+      end
+
+      def build_xml_report
+        Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
+            xml.testsuite(name: 'spinach', tests: @test_count, failures: @failure_count, time: @elapsed_time, timestamp: @timestamp) {
+              xml.properties
+              xml.testcase
+            }
+        end
       end
 
       def before_scenario(*args)
