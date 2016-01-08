@@ -10,7 +10,7 @@ describe Spinach::Reporter::Stdout do
   end
 
   let(:error) do
-    [stub(name: 'My feature'),
+    [stub(name: 'My feature', filename: 'my_feature.feature', line: 5),
       stub(name: 'A scenario'),
       stub(keyword: 'Keyword', name: 'step name'),
       exception]
@@ -211,10 +211,18 @@ describe Spinach::Reporter::Stdout do
       summary = @reporter.summarized_error(error)
 
       summary.must_include 'My feature :: A scenario :: Keyword step name'
+      summary.must_include 'my_feature.feature:5'
+    end
+
+    it 'prints the reproduction command' do
+      summary = @reporter.summarized_error(error)
+
+      summary.must_include 'spinach my_feature.feature:5'
     end
 
     it 'colorizes the print' do
-      String.any_instance.expects(:red)
+      String.any_instance.expects(:red).returns("test")
+      String.any_instance.expects(:blue).returns("foo")
 
       @reporter.summarized_error(error)
     end
@@ -224,7 +232,7 @@ describe Spinach::Reporter::Stdout do
         undefined_error = error
         undefined_error.insert(3, Spinach::StepNotDefinedException.new(anything))
 
-        String.any_instance.expects(:red)
+        String.any_instance.expects(:red).returns("test")
 
         @reporter.summarized_error(error)
       end

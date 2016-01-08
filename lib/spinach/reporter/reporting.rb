@@ -106,14 +106,15 @@ module Spinach
       #
       def summarized_error(error)
         feature, scenario, step, exception = error
-        summary = "    #{feature.name} :: #{scenario.name} :: #{full_step step}"
+        command = "spinach #{feature.filename}:#{feature.line}"
+        summary = " # #{feature.name} :: #{scenario.name} :: #{full_step step}"
         if exception.kind_of?(Spinach::StepNotDefinedException)
-          summary.red
+          command.red + summary.blue
         elsif exception.kind_of?(Spinach::StepPendingException)
           summary += "\n      Reason: '#{exception.reason}'\n"
-          summary.yellow
+          command.yellow + summary.blue
         else
-          summary.red
+          command.red + summary.blue
         end
       end
 
