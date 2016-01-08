@@ -97,3 +97,4 @@ end
 require_relative 'reporter/stdout'
 require_relative 'reporter/progress'
 require_relative 'reporter/failure_file'
+require_relative 'reporter/xml'
