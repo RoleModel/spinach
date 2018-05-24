@@ -34,8 +34,7 @@ module Spinach
                 :reporter_classes,
                 :reporter_options,
                 :fail_fast,
-                :audit,
-                :output
+                :audit
 
 
     # The "features path" holds the place where your features will be

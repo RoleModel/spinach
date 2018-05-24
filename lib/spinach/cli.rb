@@ -95,7 +95,8 @@ module Spinach
 
           opts.on('-b', '--backtrace',
                   'Show backtrace of errors') do |show_backtrace|
-            config[:reporter_options] = {backtrace: show_backtrace}
+            config[:reporter_options] ||= {}
+            config[:reporter_options][:backtrace] = show_backtrace
           end
 
           opts.on('-t', '--tags TAG',
@@ -144,7 +145,8 @@ and obsolete steps") do
 
           opts.on('-o', '--output PATH',
                   'Write structured output to a file') do |file|
-            config[:output] = file
+            config[:reporter_options] ||= {}
+            config[:reporter_options][:output] = file
           end
         end.parse!(@args)
 
