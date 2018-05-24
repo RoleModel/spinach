@@ -41,9 +41,9 @@ module Spinach
               feature = scenario.feature
               case scenario.status
               when :success
-                xml.testcase(classname: feature.name, name: scenario.name, file: "#{feature.filename}:#{scenario.lines.join(', ')}", time: scenario.elapsed_time)
+                xml.testcase(classname: feature.name, name: scenario.name, file: "#{feature.filename}:#{scenario.lines.first}", time: scenario.elapsed_time)
               when :failure
-                xml.testcase(classname: feature.name, name: scenario.name, file: "#{feature.filename}:#{scenario.line.join(', ')}", time: scenario.elapsed_time) do
+                xml.testcase(classname: feature.name, name: scenario.name, file: "#{feature.filename}:#{scenario.line.first}", time: scenario.elapsed_time) do
                   xml.failure(message: scenario.failure)
                 end
               end # case scenario.status
