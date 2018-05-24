@@ -11,7 +11,7 @@ module Spinach
 
       def initialize(*args)
         super(*args)
-        @out = options[:output] || File.open('spinach.xml', 'w')
+        @out = File.open(options[:output] || 'spinach.xml', 'w')
         @all_scenarios = []
       end
 

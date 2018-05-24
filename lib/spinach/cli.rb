@@ -141,6 +141,11 @@ module Spinach
 and obsolete steps") do
             config[:audit] = true
           end
+
+          opts.on('-o', '--output PATH',
+                  'Write structured output to a file') do |file|
+            config[:output] = file
+          end
         end.parse!(@args)
 
         Spinach.config.parse_from_file
