@@ -16,7 +16,7 @@ module Spinach
       #
       def initialize(*args)
         super(*args)
-        @out = options[:output] || $stdout
+        @out = options[:output] ? File.open(options[:output]) : $stdout
         @error = options[:error] || $stderr
         @max_step_name_length = 0
       end
