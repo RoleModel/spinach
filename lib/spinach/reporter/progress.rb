@@ -16,7 +16,7 @@ module Spinach
       #
       def initialize(*args)
         super(*args)
-        @out = options[:output] || $stdout
+        @out = $stdout
         @error = options[:error] || $stderr
       end
 
